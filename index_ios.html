@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>вский.space</title>
+<link rel="preload" href="content/favicon-32x32.png" as="image">
+<link rel="icon" href="content/favicon-32x32.png" type="image/png">
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+  }
+  .overlay {
+    position: fixed;
+    top: env(safe-area-inset-top, 0);
+    left: env(safe-area-inset-left, 0);
+    right: env(safe-area-inset-right, 0);
+    bottom: env(safe-area-inset-bottom, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  /* Контейнер: строки/строки из кнопок, но кнопки занимают только свою ширину */
+  .buttonblock{
+    padding: env(safe-area-inset-top, 12px)
+             env(safe-area-inset-right, 12px)
+             env(safe-area-inset-bottom, 12px)
+             env(safe-area-inset-left, 12px);
+
+    display:flex;
+    flex-wrap:wrap;           /* перенос строк */
+    gap:16px;
+    justify-content: space-between; /* ключ! */
+    background:transparent;
+  }
+
+  /* Кнопки: не растягиваемся (интринсивный размер) */
+  .buttonblock button{
+    flex: 0 0 auto;           /* НЕ растягивать */
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 12px;
+    font-size:1.25rem;
+    color: gray;
+    background: rgba(0,0,0,0.45);
+    border: 0;
+    cursor:pointer;
+    transition: opacity .6s ease, transform .45s cubic-bezier(.2,.9,.2,1);
+    will-change: opacity, transform;
+    z-index: 99;
+  }
+
+  /* Hover для обычных кнопок */
+  .buttonblock button:not(#close):hover {
+    opacity: .5;
+  }
+  /* Опционально: визуально отключаем hover для закрытых кнопок */
+  .buttonblock button#close {
+    cursor: default; /* сжатая ладонь */
+    color: rgba(70,70,70,1.0);
+  }
+
+  /* класс скрытия: плавно пропадает и перестаёт принимать события */
+  .hidden-btn{
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* после завершения анимации мы дополнительно ставим visibility:hidden (JS) —
+     это защищает от :hover и от фокусировки через клавиатуру */
+  .background{
+    position:absolute;inset:0;background:#000;z-index:0;transition:opacity 1.2s ease;
+  }
+
+  /* маленькие устройства — уменьшаем отступ и шрифт */
+  @media (max-width:420px){
+    .buttonblock{gap:10px;padding:12px}
+    .buttonblock button{padding:10px 14px;font-size:1rem}
+  }
+</style>
+</head>
+<body>
+
+
+<div class="overlay" id="overlay">
+  <div class="buttonblock" id="buttonblock">
+    <button data-href="/negative" id="open">негативы</button>
+    <button data-href="/chat"     id="open">chat___</button>
+    <button data-href="/день"     id="open">день</button>   
+    <button data-href="/триптих"  id="open">триптих</button>
+    <button data-href="/exegesis" id="open">.exe</button>
+
+    <button data-href="/bread"    id="close">bread</button>
+    <button data-href="/renders"  id="close">_enders</button>
+    <button data-href="/halo"     id="close">[ haloguys ]</button>
+    <button data-href="/wolume"   id="close">~</button>
+    <button data-href="/identity" id="close">identity</button>
+    <button data-href="/покпокки" id="close">покпокки</button>
+    <button data-href="/work"     id="close">работа</button>
+    <button data-href="/process"  id="close">_cess</button>
+    <button data-href="/снимки"   id="close">снимки</button>
+    <button data-href="/const"    id="close">/</button>
+    <button data-href="/graphics" id="close">графика</button>
+    <button data-href="/space"    id="close">—</button>
+    <button data-href="/about"    id="close">[ &hearts; ]</button>
+  </div>
+  <div class="background" id="background"></div>
+</div>
+
+
+<script>
+  const buttonBlock = document.getElementById('buttonblock');
+  const buttons = Array.from(buttonBlock.querySelectorAll('button'));
+
+  // ВОССТАНОВЛЕНИЕ ПОСЛЕ ВОЗВРАТА НАЗАД
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      // только восстанавливаем видимость скрытых кнопок
+      buttons.forEach(btn => {
+        if(btn.classList.contains('hidden-btn')){
+          btn.classList.remove('hidden-btn');
+          btn.style.visibility = 'visible';
+        }
+      });
+      buttonBlock.style.pointerEvents = "";
+    }
+  });
+
+  /* ========== Автоматическая подстройка размера шрифта в зависимости от кол-ва кнопок ==========
+     простая эвристика: чем больше кнопок — тем меньше шрифт (можно настроить под себя).
+  */
+  (function adjustFontByCount(){
+    const n = buttons.length;
+    // примерная формула: 1.6rem при 1-3 кнопках, уменьшаем при большем числе
+    const base = 4.4; // rem
+    const sizeRem = Math.max(0.9, base - (n - 3) * 0.12);
+    buttons.forEach(b => b.style.fontSize = sizeRem + 'rem');
+  })();
+
+  function removeOverflowingCloseButtons() {
+    const container = document.getElementById('buttonblock');
+    const overlay = document.getElementById('overlay');
+    const maxHeight = overlay.clientHeight;
+
+    // Пока контент не помещается
+    while (container.scrollHeight > maxHeight) {
+      // Берём все кнопки close, кроме исключений
+      const closeButtons = Array.from(container.querySelectorAll('button#close'))
+        .filter(btn => btn.dataset.href !== '/space' && btn.dataset.href !== '/about');
+
+      if (closeButtons.length === 0) break; // Больше нечего удалять
+
+      // Удаляем последнюю подходящую кнопку
+      const btnToRemove = closeButtons.pop();
+      container.removeChild(btnToRemove);
+    }
+  }
+
+  function hideAllButtons() {
+    return new Promise(resolve => {
+      let finished = 0;
+      const total = buttons.length;
+
+      function onTransitionEnd(e) {
+        if (e.propertyName !== 'opacity') return;
+        finished++;
+        if (finished >= total) {
+          cleanup();
+          buttons.forEach(btn => btn.style.visibility = 'hidden');
+          resolve();
+        }
+      }
+
+      function cleanup(){
+        buttons.forEach(btn => btn.removeEventListener('transitionend', onTransitionEnd));
+      }
+
+      // привязываем слушатель И запускаем анимацию скрытия
+      buttons.forEach(btn => btn.addEventListener('transitionend', onTransitionEnd));
+      // небольшая задержка, чтобы гарантировано применился класс и началась анимация
+      requestAnimationFrame(() => {
+        buttons.forEach(btn => btn.classList.add('hidden-btn'));
+      });
+
+      // safety fallback — если transitionend не сработает, через 1.2s всё равно продолжим
+      setTimeout(() => {
+        if (finished < total) {
+          cleanup();
+          buttons.forEach(btn => btn.style.visibility = 'hidden');
+          resolve();
+        }
+      }, 1400);
+    });
+  }
+
+  function shuffleButtonsWithInternalRulesB() {
+    const container = document.getElementById('buttonblock');
+    const buttons = Array.from(container.querySelectorAll('button'));
+
+    if (buttons.length <= 3) return; // слишком мало кнопок для перемешивания
+
+    // находим фиксированные
+    const last = buttons.find(b => b.dataset.href === "/about");
+    const pre_a = buttons.find(b => b.dataset.href === "/space");
+    //const pre_b = buttons.find(b => b.dataset.href === "/halo");
+
+    // кнопки, которые нельзя ставить последними перед фиксированными
+    const excl = buttons.filter(b => b.dataset.href === "/wolume" || b.dataset.href === "/const");
+
+    // остальные кнопки
+    const rest = buttons.filter(b => ![last, pre_a].includes(b));
+
+    // функция перемешивания Fisher–Yates
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    // перемешиваем, пока последний элемент локального массива не будет в excl
+    let valid = false;
+    while (!valid) {
+      shuffle(rest);
+      const lastRest = rest[rest.length - 1];
+      valid = !excl.includes(lastRest);
+    }
+
+    // очищаем контейнер
+    container.innerHTML = "";
+
+    // вставляем перемешанные кнопки
+    rest.forEach(btn => container.appendChild(btn));
+
+    // вставляем фиксированные в конец
+    //container.appendChild(pre_b); 
+    container.appendChild(pre_a);
+    container.appendChild(last); 
+  }
+
+  // вызов при загрузке
+  shuffleButtonsWithInternalRulesB();
+  removeOverflowingCloseButtons();
+
+  // навешиваем обработчики на все кнопки
+  buttons.forEach(btn => {
+    btn.addEventListener('click', async (ev) => {
+      if (btn.id === 'close') {
+        ev.preventDefault(); // блокируем переход
+        return false;        // ничего не делаем
+      }
+
+      // Для остальных кнопок
+      ev.preventDefault();
+      const href = btn.dataset.href || '#';
+
+      buttonBlock.style.pointerEvents = 'none';
+      await hideAllButtons();
+      window.location.href = href;
+    });
+  });
+
+
+</script>
+</body>
+</html>

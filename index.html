@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
+<script>
+  (function () {
+    const ua = navigator.userAgent.toLowerCase();
+    const isMobile = /iphone|ipad|android/.test(ua);
+
+    if (isMobile) {
+      location.replace("/ios/chat");
+    }
+  })();
+</script>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  
+
   <title>chat___</title>
   <link rel="icon" href="/content/fav/f_chat_alt.png" type="image/png">
   <link rel="apple-touch-icon" sizes="180x180" href="/content/fav/f_chat_alt.png">

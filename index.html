@@ -126,8 +126,8 @@
   <div class="content">
     <img src="presentation/CST_PresentAnimation.gif">
   </div>
-  <button data-href="https://pl.wikipedia.org/">
-    [&nbsp;&nbsp;&nbsp;<span class="special">i</span>&nbsp;&nbsp;&nbsp;]
+  <button id="special" data-href="https://github.com/AleksandrovskyV/chat">
+    [&nbsp;&nbsp;&nbsp;<span class="special">?</span>&nbsp;&nbsp;&nbsp;]
   </button>
 </div>
 
@@ -135,6 +135,23 @@
 <script>
 
 const buttons = document.querySelectorAll('.page_container button');
+const sButton = document.getElementById('special');
+
+
+function updateLastButton() {  
+    const isWindows = navigator.userAgent.includes('Windows');
+
+    if (isWindows) {
+        sButton.querySelector('span').textContent = '!';
+        sButton.dataset.href = 
+          "https://github.com/AleksandrovskyV/chat/releases/latest/download/ChatSPT.exe";
+    } else {
+        sButton.querySelector('span').textContent = 'i';
+        sButton.dataset.href = "https://github.com/AleksandrovskyV/chat";
+    }
+}
+
+updateLastButton()
 
 buttons.forEach(btn => {
   btn.addEventListener('click', e => {

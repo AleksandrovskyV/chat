@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="scene" xmlns="http://www.w3.org/2000/svg" width="15859.8" height="10558.3" viewBox="0 0 15859.8 10558.3">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c6cdd0;
+      }
+    </style>
+  </defs>
+  <g id="level">
+    <g id="BG">
+      <rect id="Background" class="cls-1" x="6" width="15853.8" height="9606.2"/>
+    </g>
+  </g>
+</svg>

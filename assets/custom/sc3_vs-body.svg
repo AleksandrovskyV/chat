@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_2_00000114054789322497263540000008502362208892997273_"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 175 175"
+	 style="enable-background:new 0 0 175 175;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;fill-rule:evenodd;clip-rule:evenodd;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;}
+	.st2{display:none;}
+	.st3{display:inline;fill:#FFBB56;}
+</style>
+<g id="VLM_MaskSimple">
+	<g id="Body">
+		<g id="BodyMask">
+			<path class="st0" d="M0,0v175h175V0H0z M87.5,144C56.8,144,32,119.2,32,88.5S56.8,33,87.5,33S143,57.8,143,88.5
+				S118.2,144,87.5,144z"/>
+			<path id="NewSIze" class="st0" d="M0,0v175h175V0H0z M87.5,163.5c-41.4,0-75-33.6-75-75c0-41.4,33.6-75,75-75
+				c41.4,0,75,33.6,75,75C162.5,129.9,128.9,163.5,87.5,163.5z"/>
+			<path class="st1" d="M0,0v175h175V0H0z M87.5,147.5c-32.6,0-59-26.4-59-59s26.4-59,59-59s59,26.4,59,59S120.1,147.5,87.5,147.5z"
+				/>
+		</g>
+		<g id="BodyMask_00000142867250608387222050000001079200900283975606_" class="st2">
+			<path class="st3" d="M87.5,34c30.1,0,54.5,24.4,54.5,54.5S117.6,143,87.5,143S33,118.6,33,88.5S57.4,34,87.5,34 M87.5,33
+				C56.8,33,32,57.8,32,88.5S56.8,144,87.5,144S143,119.2,143,88.5S118.2,33,87.5,33L87.5,33z"/>
+		</g>
+	</g>
+</g>
+</svg>

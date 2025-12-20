@@ -1,0 +1,16 @@
+!content/
+!old/
+
+build/
+dist/
+release/
+
+data/gsk_dialog_pairs.jsonl
+data/spt_dialog_pairs.jsonl
+data/Chat0_GSK_History.json
+data/Chat1_SPT_History.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo

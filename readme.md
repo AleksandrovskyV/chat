@@ -2,7 +2,7 @@
 
 ![chipmaster-bot-preview](./other/preview.gif)
 
-[Download](https://github.com/AleksandrovskyV/chat/releases/latest/ChatSPT.exe)
+[Download](https://github.com/AleksandrovskyV/chat/releases/latest/download/ChatSPT.exe)
 
 # shortcuts/
 [ ALT + F1 ] or [ ALT + Tilde ] <br>

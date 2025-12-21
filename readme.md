@@ -2,6 +2,7 @@
 
 ![chipmaster-bot-preview](./other/preview.gif)
 
+[Download](https://github.com/USER/REPO/releases/latest)
 
 # shortcuts/
 [ ALT + F1 ] or [ ALT + Tilde ] <br>

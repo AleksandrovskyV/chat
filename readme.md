@@ -2,6 +2,7 @@
 
 ![chipmaster-bot-preview](./other/preview.gif)
 
+[Download](https://github.com/AleksandrovskyV/chat/releases/latest/download/ChatSPT.exe) for Windows 10
 
 # shortcuts/
 [ ALT + F1 ] or [ ALT + Tilde ] <br>

@@ -2,6 +2,8 @@
 <html lang="ru">
 <head>
 
+<meta charset="UTF-8">
+
 <script>
   (function () {
     const ua = navigator.userAgent.toLowerCase();
@@ -13,109 +15,106 @@
   })();
 </script>
 
-  <meta charset="UTF-8">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chat___">
+<meta name="twitter:description" content="SimpleIcon on PySide6">
+<meta name="twitter:image" content="https://vsky.space/content/cover/chat.jpg">
+<meta name="twitter:site" content="@AleksandrovskyV">
 
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="Chat___">
-	<meta name="twitter:description" content="SimpleIcon on PySide6">
-	<meta name="twitter:image" content="https://vsky.space/content/cover/chat.jpg">
-	<meta name="twitter:site" content="@AleksandrovskyV">
+<meta property="og:title" content="Chat___">
+<meta property="og:description" content="SimpleIcon on PySide6">
+<meta property="og:image" content="https://vsky.space/content/cover/chat.jpg">
+<meta property="og:image:secure_url" content="https://vsky.space/content/cover/chat.jpg">
+<meta property="og:url" content="https://vsky.space/chat">
+<meta property="og:type" content="website">
 
-	<meta property="og:title" content="Chat___">
-	<meta property="og:description" content="SimpleIcon on PySide6">
-	<meta property="og:image" content="https://vsky.space/content/cover/chat.jpg">
-	<meta property="og:image:secure_url" content="https://vsky.space/content/cover/chat.jpg">
-	<meta property="og:url" content="https://vsky.space/chat">
-	<meta property="og:type" content="website">
+<title>chat___</title>
+<link rel="icon" href="/content/fav/f_chat_alt.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="/content/fav/f_chat_alt.png">
 
-  <title>chat___</title>
-  <link rel="icon" href="/content/fav/f_chat_alt.png" type="image/png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/content/fav/f_chat_alt.png">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: black;
-      flex-direction: column;
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: black;
+    flex-direction: column;
 
-    }
-    .page_container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      width: 100%;
-      height: 100vh; /* контейнер ровно под экран */
-      overflow: hidden;
-      background: black;
-    }
+  }
+  .page_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100vh; /* контейнер ровно под экран */
+    overflow: hidden;
+    background: black;
+  }
 
-    .content {
-      transform-origin: center center; /* масштабирование из центра */
-      transition: transform 0.3s ease; /* плавное увеличение/уменьшение */
-    }
+  .content {
+    transform-origin: center center; /* масштабирование из центра */
+    transition: transform 0.3s ease; /* плавное увеличение/уменьшение */
+  }
 
-    .page_container img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
+  .page_container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
 
-    .page_container button {
-      position: absolute;
-      left: 50%;
-      top: 80%;               
-      transform: translateX(-50%); 
-      padding: 12px 12px;
-      font-size: 1.3rem;
-      color: rgba(65,65,65,255.0);
-      background: rgba(0,0,0,0.0);
-      border: 0;
-      cursor: pointer;
-      z-index: 10;
-      transition: transform 0.3s ease; /* плавная анимация */
-    }
-
-
-    .page_container button .highlight {
-      color: rgba(90,90,90,1); /* более яркий цвет */
-      font-size: 1.15rem;
-
-      text-decoration: underline; /* стандартное подчеркивание */
-      text-decoration-color: rgba(90,90,90,.1); /* цвет подчеркивания */
-      text-decoration-thickness: 1px; /* толщина линии */
-
-    }
-
-    .page_container button:hover .highlight {
-      color: rgba(117,117,117,1); /* более яркий цвет */
-      text-decoration-color: rgba(117,117,117,1);
-    }
-
-    .page_container button .special {
-      color: rgba(110,110,110,1); /* более яркий цвет */
-      font-size: 1.4rem; /* вместо 1.25rem */
+  .page_container button {
+    position: absolute;
+    left: 50%;
+    top: 80%;               
+    transform: translateX(-50%); 
+    padding: 12px 12px;
+    font-size: 1.3rem;
+    color: rgba(65,65,65,255.0);
+    background: rgba(0,0,0,0.0);
+    border: 0;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease; /* плавная анимация */
+  }
 
 
-      text-decoration: underline; /* стандартное подчеркивание */
-      text-decoration-color: rgba(90,90,90,.7); /* цвет подчеркивания */
-      text-decoration-thickness: 1px; /* толщина линии */
+  .page_container button .highlight {
+    color: rgba(90,90,90,1); /* более яркий цвет */
+    font-size: 1.15rem;
 
-    }
+    text-decoration: underline; /* стандартное подчеркивание */
+    text-decoration-color: rgba(90,90,90,.1); /* цвет подчеркивания */
+    text-decoration-thickness: 1px; /* толщина линии */
 
-    .page_container button:hover .special {
-      color: rgba(150,150,150,1); /* более яркий цвет */
-      text-decoration-color: rgba(117,117,117,1);
-    }
+  }
 
-  </style>
+  .page_container button:hover .highlight {
+    color: rgba(117,117,117,1); /* более яркий цвет */
+    text-decoration-color: rgba(117,117,117,1);
+  }
+
+  .page_container button .special {
+    color: rgba(110,110,110,1); /* более яркий цвет */
+    font-size: 1.4rem; /* вместо 1.25rem */
 
 
+    text-decoration: underline; /* стандартное подчеркивание */
+    text-decoration-color: rgba(90,90,90,.7); /* цвет подчеркивания */
+    text-decoration-thickness: 1px; /* толщина линии */
+
+  }
+
+  .page_container button:hover .special {
+    color: rgba(150,150,150,1); /* более яркий цвет */
+    text-decoration-color: rgba(117,117,117,1);
+  }
+
+</style>
 
 </head>
 <body>

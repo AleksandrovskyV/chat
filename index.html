@@ -193,7 +193,7 @@ buttons.forEach(btn => {
 });
 
 function handleEscape(e) {
-  if (e.key === "Escape") {
+  if (e.key === "Escape" || e.key === 'ArrowLeft') {
     if (window.location.protocol === "file:") {
       window.location.href = "./index.html";
     } else {

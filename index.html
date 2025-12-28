@@ -46,7 +46,7 @@
     height: 100%;
     background: black;
     flex-direction: column;
-
+	cursor: url("assets/cur/default-accent.png"), auto;
   }
   .page_container {
     display: flex;
@@ -57,6 +57,7 @@
     height: 100vh; /* контейнер ровно под экран */
     overflow: hidden;
     background: black;
+	
   }
 
   .content {
@@ -68,6 +69,8 @@
     max-width: 100%;
     height: auto;
     display: block;
+	pointer-events: none;
+	cursor: none
   }
 
   .page_container button {
@@ -80,7 +83,8 @@
     color: rgba(65,65,65,255.0);
     background: rgba(0,0,0,0.0);
     border: 0;
-    cursor: pointer;
+    /* cursor: pointer; */
+	cursor: url("assets/cur/ps-pointer-inv.png"), auto;
     z-index: 10;
     transition: transform 0.3s ease; /* плавная анимация */
   }
@@ -99,6 +103,7 @@
   .page_container button:hover .highlight {
     color: rgba(117,117,117,1); /* более яркий цвет */
     text-decoration-color: rgba(117,117,117,1);
+	
   }
 
   .page_container button .special {
@@ -192,7 +197,7 @@ function handleEscape(e) {
     if (window.location.protocol === "file:") {
       window.location.href = "./index.html";
     } else {
-      window.history.back();
+      window.location.href = "https://vsky.space";
     }
   }
 }
@@ -285,6 +290,19 @@ document.addEventListener('wheel', e => {
 
 }, { passive: false });
 
+document.addEventListener('keydown', e => {
+  if (isScrolling) return;
+
+  let nextIndex = currentIndex;
+
+  if (e.key === 'ArrowDown' || e.code === 'KeyS') nextIndex++;
+  if (e.key === 'ArrowUp'   || e.code === 'KeyW') nextIndex--;
+
+  if (nextIndex < 0 || nextIndex >= containers.length) return;
+
+  e.preventDefault();
+  scrollToContainer(nextIndex);
+});
 
 </script>
 

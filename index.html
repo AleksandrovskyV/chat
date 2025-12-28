@@ -192,19 +192,7 @@ buttons.forEach(btn => {
   });
 });
 
-function handleEscape(e) {
-  if (e.key === "Escape" || e.key === 'ArrowLeft') {
-    if (window.location.protocol === "file:") {
-      window.location.href = "./index.html";
-    } else {
-      window.location.href = "https://vsky.space";
-    }
-  }
-}
 
-// Подписываем один обработчик на оба объекта
-window.addEventListener('keydown', handleEscape);
-document.addEventListener('keydown', handleEscape);
 
 let scale = 1;
 let currentIndex = 0;
@@ -289,6 +277,21 @@ document.addEventListener('wheel', e => {
   }, 150);
 
 }, { passive: false });
+
+function onKeyCommand(e) {
+  if (e.key === "Escape" || e.key === 'ArrowLeft') {
+    if (window.location.protocol === "file:") {
+      window.location.href = "./index.html";
+    } else {
+      window.location.href = "https://vsky.space";
+    }
+  }
+}
+
+// Подписываем один обработчик на оба объекта
+window.addEventListener('keydown', onKeyCommand);
+document.addEventListener('keydown', onKeyCommand);
+
 
 document.addEventListener('keydown', e => {
   if (isScrolling) return;
